@@ -23,6 +23,7 @@ function getPerson($person, $headers)
     }
 }
 
+//test
 function personInfo($personSearched)
 {
     $people =  file_get_contents("people.json");
