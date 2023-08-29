@@ -13,21 +13,24 @@ function peopleList()
 function getPerson($person, $headers)
 {
     if (str_contains($headers, "image")){
+        echo "image";
         personImage($person);
     }
     else
     {
-        personInfo();
+        echo "info";
+        personInfo($person);
     }
 }
 
-function personInfo($person)
+function personInfo($personSearched)
 {
-    $people = json_decode("people.json");
+    $people =  file_get_contents("people.json");
+    $file = json_decode($people, true);
 
-    foreach ($people->{'people'} as $person)
+    foreach ($file as $person)
     {
-
+        echo($person['id']);
     }
 }
 
