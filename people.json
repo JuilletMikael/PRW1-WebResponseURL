@@ -1,0 +1,16 @@
+{
+  "people"  : [
+    {
+      "id": "pmachin",
+      "name": "Molecule Man",
+      "age": 29,
+      "secretIdentity": "Dan Jukes"
+    },
+    {
+      "id": "ptruck",
+      "name": "Spider Man",
+      "age": 14,
+      "secretIdentity": "Peter Parke"
+    }
+  ]
+}

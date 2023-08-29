@@ -1,0 +1,12 @@
+{
+  "cities": [
+    {
+      "CP": 1400,
+      "name": "Yverdon"
+    },
+    {
+      "CP": 1450,
+      "name": "St-Croix"
+    }
+  ]
+}
