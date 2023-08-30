@@ -1,10 +1,12 @@
 [
   {
     "CP": 1400,
-    "name": "Yverdon"
+    "name": "Yverdon",
+    "GoogleMaps" : ""
   },
   {
     "CP": 1450,
-    "name": "St-Croix"
+    "name": "St-Croix",
+    "GoogleMaps" : ""
   }
 ]

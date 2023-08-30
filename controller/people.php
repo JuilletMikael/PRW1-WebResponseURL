@@ -1,10 +1,5 @@
 <?php
 
-function peopleController($uri, $header)
-{
-
-}
-
 function peopleList()
 {
     echo(require_once "people.json");
@@ -16,11 +11,12 @@ function getPerson($person, $headers)
         echo "image";
         personImage($person);
     }
-    else
+    elseif (str_contains($headers, "text"))
     {
         echo "info";
         personInfo($person);
     }
+    //TODO return something if anything
 }
 
 //test
@@ -31,8 +27,13 @@ function personInfo($personSearched)
 
     foreach ($file as $person)
     {
+        if ($personSearched == $person['id'])
         echo($person['id']);
+        return;
+        // TODO return 200
     }
+    echo "The id isnt found !";
+    //TODO : return error 400
 }
 
 function personImage($person)
