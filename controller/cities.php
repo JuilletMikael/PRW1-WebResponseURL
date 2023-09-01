@@ -3,24 +3,22 @@
 
 function citiesList() : void
 {
-    echo(require_once "people.json");
+    echo(require_once "cities.json");
 }
 
 function cityController($city, $headers) : void
 {
-    if (str_contains($headers, "image")){
-        echo "image";
-        cityImage($city);
+    if (str_contains($headers, "application/x-maps")){
+        cityMap($city);
     }
-    elseif (str_contains($headers, "text"))
+    if (str_contains($headers, "text"))
     {
-        echo "info";
         cityInfo($city);
     }
     //TODO return something if anything
 }
 
-//TODO : test if person exeits
+//TODO : test if person exits
 
 function cityInfo($citySearched): void
 {
@@ -29,25 +27,17 @@ function cityInfo($citySearched): void
 
     foreach ($cities as $city)
     {
-        if ($citySearched == $city['id'])
-            echo($city);
-        return;
+        if ($citySearched == $city['CP']){
+            echo "Welcome to " . $city['name'] .
+                " with a postal code of " . $city['CP'];
+        }
+            
         // TODO return 200
     }
-    echo "The id isn't found !";
     //TODO : return error 400
 }
 
-function cityImage($citySearched): void
+function cityMap($citySearched): void
 {
-    $imageDirectory = "/image/";
-    $imageFile = $imageDirectory . $citySearched . ".jpg";
 
-    if (file_exists($imageFile))
-    {
-
-        return;
-    }
-    // TODO return 200
-    echo "The id isn't found !";
 }
