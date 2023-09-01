@@ -1,11 +1,12 @@
 <?php
+//TODO : Use php 8 varriable with value (string, int, etc);
 
-function peopleList()
+function peopleList() : void
 {
     echo(require_once "people.json");
 }
 
-function getPerson($person, $headers)
+function personController($person, $headers) : void
 {
     if (str_contains($headers, "image")){
         echo "image";
@@ -19,24 +20,34 @@ function getPerson($person, $headers)
     //TODO return something if anything
 }
 
-//test
-function personInfo($personSearched)
-{
-    $people =  file_get_contents("people.json");
-    $file = json_decode($people, true);
+//TODO : test if person exeits
 
-    foreach ($file as $person)
+function personInfo($personSearched): void
+{
+    $file =  file_get_contents("people.json");
+    $people = json_decode($file, true);
+
+    foreach ($people as $person)
     {
         if ($personSearched == $person['id'])
-        echo($person['id']);
+        echo($person);
         return;
         // TODO return 200
     }
-    echo "The id isnt found !";
+    echo "The id isn't found !";
     //TODO : return error 400
 }
 
-function personImage($person)
+function personImage($personSearched): void
 {
-    echo("image");
+    $imageDirectory = "/image/";
+    $imageFile = $imageDirectory . $personSearched . ".jpg";
+
+    if (file_exists($imageFile))
+    {
+
+        return;
+    }
+    // TODO return 200
+    echo "The id isn't found !";
 }

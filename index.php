@@ -12,14 +12,20 @@ if(isset($_SERVER['REQUEST_URI'])){
         case 'people':
             if ($action[2])
             {
-                getPerson($action[2], $headers);
+                personController($action[2], $headers);
             }
             else{
                 peopleList();
             }
             break;
         case 'cities':
-            citiesController($action);
+            if ($action[2])
+            {
+                cityController($action[2], $headers);
+            }
+            else{
+                citiesList();
+            }
             break;
         default:
             helloPage();
