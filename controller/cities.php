@@ -1,43 +1,42 @@
 <?php
-//TODO : Use php 8 variable with type (string, int, etc);
 
-function citiesList() : void
+function citiesController($uriExplode, $mims)
 {
-    echo(require_once "cities.json");
-}
+    require_once "models/mims.php";
+    $mim = mimCheck($mims, ["text/*", "text/html", "application/*", "application/x-map"]); //TODO : If doesnt exist trow an error
 
-function cityController($city, $headers) : void
-{
-    if (str_contains($headers, "application/x-maps")){
-        cityMap($city);
-    }
-    if (str_contains($headers, "text"))
+    if(count($uriExplode) <3 ) showCitiesList("cities.json");
+    else
     {
-        cityInfo($city);
+        require_once "models/json.php";
+        $cityInformation = findInJson("cities.json", $uriExplode[2]);
     }
-    //TODO return something if anything
+    //TODO : If it doesn't exist throw error
+
+    if ($cityInformation && str_contains($mim, "text")) showCityInformation($cityInformation);
+    elseif ($cityInformation && str_contains($mim, "application")) showCityMap($cityInformation);
 }
 
-//TODO : test if person exits
-
-function cityInfo($citySearched): void
+function showCityInformation($info) :void
 {
-    $file =  file_get_contents("cities.json");
-    $cities = json_decode($file, true);
-
-    foreach ($cities as $city)
-    {
-        if ($citySearched == $city['CP']){
-            echo "Welcome to " . $city['name'] .
-                " with a postal code of " . $city['CP'];
-        }
-            
-        // TODO return 200
-    }
-    //TODO : return error 400
+    $message = "Welcome to " . $info['name'] . " " . $info['CP'];
+    echo $message;
 }
 
-function cityMap($citySearched): void
+function showCityMap($info) :void
 {
+    header("Location:" . $info['GoogleMaps']);
+}
 
+function showCitiesList($jsonFilePath) :void
+{
+    $file =  file_get_contents($jsonFilePath);
+    $content = json_decode($file, true);
+    $message = "All CP's available ";
+
+    foreach ($content as $value){
+        $message .= $value['CP'] . "; ";
+    }
+
+    echo $message;
 }
