@@ -1,4 +1,5 @@
 <?php
+
 function mimCheck($mims, $allowedMims)
 {
     if (!$mims) echo"no mims 415";
