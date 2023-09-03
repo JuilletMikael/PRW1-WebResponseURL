@@ -18,8 +18,7 @@ function peopleController($uriExplode, $mims)
     if(count($uriExplode) <3 ) showPeopleList("people.json");
     else
     {
-        require_once "models/json.php";
-        $personInformation = findInJson("people.json", $uriExplode[2]);
+        $personInformation = findPersonInJson("people.json", $uriExplode[2]);
         if (!$personInformation) {
             header("HTTP/1.1 404 Bad Request");
             header("Content-Type: text/plain");
@@ -70,4 +69,16 @@ function showPeopleList($jsonFilePath) :void
     header("Content-Type: text/html");
 
     echo $message;
+}
+
+function findPersonInJson($jsonFilePath, $searchableValue)
+{
+    $file =  file_get_contents($jsonFilePath);
+    $content = json_decode($file, true);
+
+    foreach ($content as $value)
+    {
+        if ($searchableValue == $value['id'])
+            return $value;
+    }
 }

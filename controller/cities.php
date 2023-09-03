@@ -18,8 +18,7 @@ function citiesController($uriExplode, $mims)
     if(count($uriExplode) <3 ) showCitiesList("cities.json");
     else
     {
-        require_once "models/json.php";
-        $cityInformation = findInJson("cities.json", $uriExplode[2]);
+        $cityInformation = findCityInJson("cities.json", $uriExplode[2]);
         if (!$cityInformation) {
             header("HTTP/1.1 404 Bad Request");
             header("Content-Type: text/plain");
@@ -59,4 +58,16 @@ function showCitiesList($jsonFilePath) :void
     header("Content-Type: text/html");
 
     echo $message;
+}
+
+function findCityInJson($jsonFilePath, $searchableValue)
+{
+    $file =  file_get_contents($jsonFilePath);
+    $content = json_decode($file, true);
+
+    foreach ($content as $value)
+    {
+        if ($searchableValue == $value['CP'])
+            return $value;
+    }
 }
